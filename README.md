@@ -1,5 +1,5 @@
 # Brick-Breaker
-A classic JavaScript Canvas brick breaker game for the browser.
+A classic JavaScript Canvas rain animation for the browser.
 
 [Owen Holman](https://owenholman.com)'s second git repo.
 
