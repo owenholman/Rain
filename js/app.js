@@ -7,7 +7,9 @@ canvas.height = window.innerHeight;
 const gameBtn = document.getElementById('game-btn');
 const cover = document.getElementById('cover-content');
 const game = document.getElementById('game-content');
+var animation = null;
 var rain;
+var initGen = false;
 
 window.addEventListener('resize', () => {
 	canvas.width = window.innerWidth;
@@ -23,22 +25,31 @@ window.addEventListener('keydown', e => {
 })
 
 gameBtn.addEventListener('click', () => {
-	cover.style.display = 'none';
-	game.style.display = 'block';
-	rain = new RainObj();
-	play();
+	if (initGen == false) {
+		cover.style.display = 'none';
+		game.style.display = 'block';
+		rain = new RainObj();
+		play();
+		initGen = true;
+	} else if (initGen == true) {
+		window.cancelAnimationFrame(animation);
+		delete rain;
+		cover.style.display = 'flex';
+		game.style.display = 'none';
+		initGen = false;
+	}
 });
 
 const drawBackground = () => {
 	let gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-	gradient.addColorStop(0, "#204959");
-	gradient.addColorStop(1, "#0B1F26");
+	gradient.addColorStop(0, "#0B1F26");
+	gradient.addColorStop(1, "#263238");
 	return gradient;
 }
 
 const play = () => {
 	// recommence the loop
-	window.requestAnimationFrame(play);
+	animation = window.requestAnimationFrame(play);
 
 	// redraw the background
 	ctx.fillStyle = drawBackground();

@@ -3,6 +3,8 @@ const RainObj = function() {
 	this.maxRain = 65;
 	this.bounceTotal = 0;
 
+	this.puddles = [];
+
 	this.x;
 	this.y;
 	this.dy;
@@ -31,9 +33,13 @@ const RainObj = function() {
 	this.update = () => {
 		for (i = 0; i < this.total.length; i++) {
 			if (this.total[i].bounce > 2) {
+				this.puddles.push({
+					x: this.total[i].x,
+					y: this.total[i].y
+				});
 				this.total.splice(i, 1);
 			} else {
-				if (this.total[i].y + this.total[i].length >= canvas.height * (11/12)) {
+				if (this.total[i].y + this.total[i].length >= canvas.height * getRandomNum(11/12, 13/12)) {
 					this.total[i].dy = -this.total[i].dy * this.friction;
 					this.total[i].bounce++;
 				} else {
@@ -54,6 +60,10 @@ const RainObj = function() {
 			ctx.lineTo(this.total[i].x, this.total[i].y + this.total[i].length);
 			ctx.closePath();
 			ctx.stroke();
+		}
+		for (i = 0; i < this.puddles.length; i++) {
+			ctx.fillStyle = '#79C4F2';
+			ctx.fillRect(this.puddles[i].x, this.puddles[i].y, 1, 1);
 		}
 	}
 }
