@@ -1,4 +1,4 @@
-# Brick-Breaker
+# Rain
 A classic JavaScript Canvas rain animation for the browser.
 
 [Owen Holman](https://owenholman.com)'s second git repo.
