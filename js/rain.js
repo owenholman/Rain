@@ -1,13 +1,13 @@
-const Ball = function() {
+const RainObj = function() {
+	this.total = [];
+	this.maxRain = 65;
+	this.bounceTotal = 0;
+
 	this.x;
 	this.y;
-	this.dy = 2;
+	this.dy;
 	this.length = 10;
 	this.friction = 0.2;
-	this.maxRain = 50;
-	this.total = [];
-	this.initBool = false;
-	this.bounceTotal = 0;
 
 	const getRandomNum = (min, max) => {
 		return Math.random() * (max - min) + min;
@@ -16,7 +16,8 @@ const Ball = function() {
 	this.init = () => {
 		if (this.total.length < this.maxRain) {
 			this.x = getRandomNum(0, canvas.width);
-			this.y = getRandomNum(0, canvas.height * (1/4));
+			this.y = 0;
+			this.dy = 1;
 			this.total.push({
 				x: this.x,
 				y: this.y,

@@ -7,7 +7,7 @@ canvas.height = window.innerHeight;
 const gameBtn = document.getElementById('game-btn');
 const cover = document.getElementById('cover-content');
 const game = document.getElementById('game-content');
-var ball;
+var rain;
 
 window.addEventListener('resize', () => {
 	canvas.width = window.innerWidth;
@@ -22,6 +22,13 @@ window.addEventListener('keydown', e => {
 	}
 })
 
+gameBtn.addEventListener('click', () => {
+	cover.style.display = 'none';
+	game.style.display = 'block';
+	rain = new RainObj();
+	play();
+});
+
 const drawBackground = () => {
 	let gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
 	gradient.addColorStop(0, "#204959");
@@ -30,17 +37,15 @@ const drawBackground = () => {
 }
 
 const play = () => {
+	// recommence the loop
 	window.requestAnimationFrame(play);
+
+	// redraw the background
 	ctx.fillStyle = drawBackground();
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
-	ball.init();
-	ball.update();
-	ball.draw();
-}
 
-gameBtn.addEventListener('click', () => {
-	cover.style.display = 'none';
-	game.style.display = 'block';
-	ball = new Ball();
-	window.requestAnimationFrame(play);
-});
+	// object manipulation
+	rain.init();
+	rain.update();
+	rain.draw();
+}
